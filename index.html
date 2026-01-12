@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Builder</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;600&family=Fira+Code:wght@400;600&family=Hack:wght@400;600&family=Source+Code+Pro:wght@400;600&family=Inter:wght@400;600&family=Roboto:wght@400;600&family=Open+Sans:wght@400;600&family=Lato:wght@400;600&family=Montserrat:wght@400;600&family=Poppins:wght@400;600&family=Nunito:wght@400;600&family=Raleway:wght@400;600&family=Ubuntu:wght@400;600&family=Merriweather:wght@400;600&family=Playfair+Display:wght@400;600&family=Crimson+Text:wght@400;600&family=Libre+Baskerville:wght@400&family=PT+Serif:wght@400&family=Lora:wght@400;600&family=Oswald:wght@400;600&family=Bebas+Neue&family=Anton&family=Righteous&family=Fredoka+One&family=Comfortaa:wght@400;600&family=Quicksand:wght@400;600&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;600&family=Inconsolata:wght@400;600&family=Roboto+Mono:wght@400;600&family=Ubuntu+Mono:wght@400;700&family=Azeret+Mono:wght@400;600&family=B612+Mono:wght@400;700&family=Cutive+Mono&family=Doto:wght@400;600&family=Lekton:wght@400;700&family=Libertinus+Mono:wght@400;600&family=Major+Mono+Display&family=Martian+Mono:wght@400;600&family=Press+Start+2P&family=Rubik+Mono+One&family=Syne+Mono&family=Xanh+Mono:wght@400;700&family=BIZ+UDMincho:wght@400;700&family=Kosugi+Maru&family=Bytesized&family=DM+Sans:wght@400;600&family=Space+Grotesk:wght@400;600&family=Work+Sans:wght@400;600&family=Syne:wght@400;600&family=Libre+Franklin:wght@400;600&family=Cormorant:wght@400;600&family=Fira+Sans:wght@400;600&family=Eczar:wght@400;600&family=Alegreya+Sans:wght@400;600&family=Alegreya:wght@400;600&family=Source+Sans+3:wght@400;600&family=Source+Serif+4:wght@400;600&family=Fraunces:wght@400;600&family=Inknut+Antiqua:wght@400;600&family=BioRhyme:wght@400;600&family=Archivo+Narrow:wght@400;600&family=Karla:wght@400;600&family=Proza+Libre:wght@400;600&family=Spectral:wght@400;600&family=Manrope:wght@400;600&family=PT+Sans:wght@400;600&family=Cardo:wght@400&family=Chivo:wght@400;600&family=Neuton:wght@400;600&family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --foreground: #000000;
+            --background: #ffffff;
+            --highlight: #666666;
+            --secondary: #333333;
+            --neutral-1: #808080;
+            --neutral-2: #4f4f4f;
+            --neutral-3: #f5f5f5;
+            --font-ui: 'Merriweather', serif;
+            --font-mono: 'Fira Code', monospace;
+            --font-header: 'Inter', sans-serif;
+            --font-size-h1: 32px;
+            --font-size-h2: 24px;
+            --font-size-h3: 18px;
+            --font-size-body: 16px;
+            --font-weight-h1: 700;
+            --font-weight-h2: 600;
+            --font-weight-h3: 600;
+            --font-weight-header: 600;
+            --font-weight-body: 400;
+        }
+
+        body {
+            font-family: var(--font-ui);
+            background: var(--background);
+            color: var(--foreground);
+            overflow-x: auto;
+        }
+
+        .controls {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--neutral-3);
+            border: 1px solid var(--neutral-1);
+            border-radius: 8px;
+            padding: 20px;
+            width: 300px;
+            max-height: 90vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-group h3 {
+            color: var(--highlight);
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .color-input {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .color-input label {
+            width: 100px;
+            font-size: 12px;
+        }
+
+        .color-input input[type="color"] {
+            width: 40px;
+            height: 30px;
+            border: none;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .color-input input[type="text"] {
+            flex: 1;
+            background: var(--background);
+            border: 1px solid var(--neutral-1);
+            color: var(--foreground);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+        }
+
+        select {
+            width: 100%;
+            background: var(--background);
+            border: 1px solid var(--neutral-1);
+            color: var(--foreground);
+            padding: 8px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .export-section {
+            margin-top: 20px;
+        }
+
+        .export-btn {
+            background: var(--highlight);
+            color: var(--background);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 4px;
+            font-size: 12px;
+        }
+
+        .copy-btn {
+            background: var(--secondary);
+            color: var(--background);
+            border: none;
+            padding: 10px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        input[type="range"] {
+            width: 70%;
+            margin: 5px 0;
+        }
+
+        .control-group span {
+            font-size: 12px;
+            color: var(--neutral-2);
+            margin-left: 10px;
+        }
+
+        .size-control {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .size-control label {
+            width: 80px;
+            font-size: 12px;
+            margin-right: 10px;
+        }
+
+        .size-control input[type="range"] {
+            flex: 1;
+            margin: 0 10px;
+        }
+
+        .size-control span {
+            width: 40px;
+            text-align: right;
+            margin: 0;
+        }
+
+        .preview-container {
+            margin-left: 340px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+
+        .preview-item {
+            padding: 20px;
+            min-height: 200px;
+        }
+
+        .preview-item h3 {
+            color: var(--highlight);
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .terminal {
+            background: var(--background);
+            color: var(--foreground);
+            font-family: var(--font-mono);
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .terminal .prompt { color: var(--highlight); }
+        .terminal .command { color: var(--secondary); }
+        .terminal .output { color: var(--neutral-2); }
+
+        .code-block {
+            background: var(--background);
+            color: var(--foreground);
+            font-family: var(--font-mono);
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+
+        .code-block .keyword { color: var(--secondary); }
+        .code-block .string { color: var(--highlight); }
+        .code-block .comment { color: var(--neutral-1); }
+        .code-block .function { color: var(--neutral-2); }
+
+        .window {
+            background: var(--background);
+            border: 1px solid var(--neutral-1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .window-header {
+            background: var(--neutral-3);
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--neutral-1);
+            display: flex;
+            align-items: center;
+        }
+
+        .window-buttons {
+            display: flex;
+            gap: 8px;
+            margin-right: 15px;
+        }
+
+        .window-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .window-button.close { background: #ff5f56; }
+        .window-button.minimize { background: #ffbd2e; }
+        .window-button.maximize { background: #27ca3f; }
+
+        .window-title { color: var(--foreground); font-size: 14px; }
+
+        .window-content {
+            padding: 20px;
+            color: var(--foreground);
+        }
+
+        .markdown h1, .markdown h2, .markdown h3 {
+            color: var(--highlight);
+            margin-bottom: 10px;
+            font-family: var(--font-header);
+        }
+
+        .preview-item h3 {
+            color: var(--highlight);
+            margin-bottom: 15px;
+            font-size: var(--font-size-h3);
+            font-family: var(--font-header);
+            font-weight: var(--font-weight-h3);
+        }
+
+        .markdown h1 { 
+            font-size: var(--font-size-h1); 
+            font-weight: var(--font-weight-h1);
+        }
+        .markdown h2 { 
+            font-size: var(--font-size-h2); 
+            font-weight: var(--font-weight-h2);
+        }
+        .markdown h3 { 
+            font-size: var(--font-size-h3); 
+            font-weight: var(--font-weight-h3);
+        }
+
+        .markdown p { 
+            margin-bottom: 15px; 
+            line-height: 1.6; 
+            font-size: var(--font-size-body);
+            font-weight: var(--font-weight-body);
+        }
+        .markdown code { 
+            background: var(--neutral-dark); 
+            color: var(--secondary); 
+            padding: 2px 6px; 
+            border-radius: 3px;
+            font-family: var(--font-mono);
+        }
+
+        .document {
+            background: var(--background);
+            color: var(--foreground);
+            padding: 20px;
+            border-radius: 6px;
+            line-height: 1.6;
+            font-size: var(--font-size-body);
+            font-weight: var(--font-weight-body);
+        }
+
+        .sway-bar {
+            background: var(--neutral-dark);
+            color: var(--foreground);
+            padding: 8px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-ui);
+            font-size: 14px;
+            border-radius: 6px;
+        }
+
+        .sway-workspace {
+            background: var(--highlight);
+            color: var(--background);
+            padding: 4px 12px;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .sway-status { color: var(--neutral-2); }
+
+        .export-output {
+            background: var(--background);
+            color: var(--foreground);
+            font-family: var(--font-mono);
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 10px;
+            border: 1px solid var(--neutral-1);
+        }
+
+        .vscode {
+            background: var(--background);
+            border: 1px solid var(--neutral-dark);
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .vscode-sidebar {
+            background: var(--neutral-3);
+            width: 120px;
+            padding: 10px 0;
+            border-right: 1px solid var(--neutral-1);
+        }
+
+        .vscode-file {
+            padding: 4px 15px;
+            font-size: 13px;
+            color: var(--neutral-2);
+            cursor: pointer;
+        }
+
+        .vscode-file.active {
+            background: var(--highlight);
+            color: var(--background);
+        }
+
+        .vscode-editor {
+            flex: 1;
+        }
+
+        .vscode-tabs {
+            background: var(--neutral-3);
+            display: flex;
+            border-bottom: 1px solid var(--neutral-1);
+        }
+
+        .vscode-tab {
+            padding: 8px 15px;
+            font-size: 13px;
+            color: var(--neutral-2);
+            border-right: 1px solid var(--neutral-1);
+            cursor: pointer;
+        }
+
+        .vscode-tab.active {
+            background: var(--background);
+            color: var(--foreground);
+        }
+
+        .sublime {
+            background: var(--background);
+            border: 1px solid var(--neutral-3);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .sublime-tabs {
+            background: var(--neutral-3);
+            display: flex;
+            border-bottom: 1px solid var(--neutral-1);
+        }
+
+        .sublime-tab {
+            padding: 8px 15px;
+            font-size: 13px;
+            color: var(--neutral-2);
+            border-right: 1px solid var(--neutral-1);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .sublime-tab.active {
+            background: var(--background);
+            color: var(--foreground);
+        }
+
+        .sublime-tab.modified::after {
+            content: '●';
+            color: var(--highlight);
+            margin-left: 5px;
+        }
+
+        .micro {
+            background: var(--background);
+            border: 1px solid var(--neutral-3);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .micro-statusbar {
+            background: var(--neutral-3);
+            padding: 6px 15px;
+            font-size: 12px;
+            color: var(--neutral-2);
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--neutral-1);
+        }
+
+        .micro-position {
+            color: var(--secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="controls" id="controls">
+        <div class="control-group">
+            <h3>Colors</h3>
+            <div class="color-input">
+                <label>Foreground:</label>
+                <input type="color" id="foreground" value="#000000">
+                <input type="text" id="foreground-hex" value="#000000">
+            </div>
+            <div class="color-input">
+                <label>Background:</label>
+                <input type="color" id="background" value="#ffffff">
+                <input type="text" id="background-hex" value="#ffffff">
+            </div>
+            <div class="color-input">
+                <label>Highlight:</label>
+                <input type="color" id="highlight" value="#666666">
+                <input type="text" id="highlight-hex" value="#666666">
+            </div>
+            <div class="color-input">
+                <label>Secondary:</label>
+                <input type="color" id="secondary" value="#333333">
+                <input type="text" id="secondary-hex" value="#333333">
+            </div>
+            <div class="color-input">
+                <label>Neutral 1:</label>
+                <input type="color" id="neutral-1" value="#808080">
+                <input type="text" id="neutral-1-hex" value="#808080">
+            </div>
+            <div class="color-input">
+                <label>Neutral 2:</label>
+                <input type="color" id="neutral-2" value="#4f4f4f">
+                <input type="text" id="neutral-2-hex" value="#4f4f4f">
+            </div>
+            <div class="color-input">
+                <label>Neutral 3:</label>
+                <input type="color" id="neutral-3" value="#f5f5f5">
+                <input type="text" id="neutral-3-hex" value="#f5f5f5">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <h3>Fonts</h3>
+            <label>Header Font:</label>
+            <select id="font-header">
+                <option value="'Alegreya', serif">Alegreya</option>
+                <option value="'Alegreya Sans', sans-serif">Alegreya Sans</option>
+                <option value="'Anton', sans-serif">Anton</option>
+                <option value="'Archivo Narrow', sans-serif">Archivo Narrow</option>
+                <option value="'Azeret Mono', monospace">Azeret Mono</option>
+                <option value="'B612 Mono', monospace">B612 Mono</option>
+                <option value="'Bebas Neue', cursive">Bebas Neue</option>
+                <option value="'BIZ UDMincho', monospace">BIZ UDMincho</option>
+                <option value="'BioRhyme', serif">BioRhyme</option>
+                <option value="'Bytesized', monospace">Bytesized</option>
+                <option value="'Cardo', serif">Cardo</option>
+                <option value="'Chivo', sans-serif">Chivo</option>
+                <option value="'Comfortaa', cursive">Comfortaa</option>
+                <option value="'Cormorant', serif">Cormorant</option>
+                <option value="'Crimson Text', serif">Crimson Text</option>
+                <option value="'Cutive Mono', monospace">Cutive Mono</option>
+                <option value="'DM Sans', sans-serif">DM Sans</option>
+                <option value="'Doto', monospace">Doto</option>
+                <option value="'Eczar', serif">Eczar</option>
+                <option value="'Fira Code', monospace">Fira Code</option>
+                <option value="'Fira Sans', sans-serif">Fira Sans</option>
+                <option value="'Fraunces', serif">Fraunces</option>
+                <option value="'Fredoka One', cursive">Fredoka One</option>
+                <option value="'Hack', monospace">Hack</option>
+                <option value="'IBM Plex Mono', monospace">IBM Plex Mono</option>
+                <option value="'IBM Plex Sans', sans-serif">IBM Plex Sans</option>
+                <option value="'Inconsolata', monospace">Inconsolata</option>
+                <option value="'Inknut Antiqua', serif">Inknut Antiqua</option>
+                <option value="'Inter', sans-serif">Inter</option>
+                <option value="'JetBrains Mono', monospace">JetBrains Mono</option>
+                <option value="'Karla', sans-serif">Karla</option>
+                <option value="'Kosugi Maru', monospace">Kosugi Maru</option>
+                <option value="'Lato', sans-serif">Lato</option>
+                <option value="'Lekton', monospace">Lekton</option>
+                <option value="'Libre Baskerville', serif">Libre Baskerville</option>
+                <option value="'Libre Franklin', sans-serif">Libre Franklin</option>
+                <option value="'Libertinus Mono', monospace">Libertinus Mono</option>
+                <option value="'Lora', serif">Lora</option>
+                <option value="'Major Mono Display', monospace">Major Mono Display</option>
+                <option value="'Manrope', sans-serif">Manrope</option>
+                <option value="'Martian Mono', monospace">Martian Mono</option>
+                <option value="'Merriweather', serif">Merriweather</option>
+                <option value="'Inter', sans-serif" selected>Inter</option>
+                <option value="'Neuton', serif">Neuton</option>
+                <option value="'Nunito', sans-serif">Nunito</option>
+                <option value="'Open Sans', sans-serif">Open Sans</option>
+                <option value="'Oswald', sans-serif">Oswald</option>
+                <option value="'PT Sans', sans-serif">PT Sans</option>
+                <option value="'PT Serif', serif">PT Serif</option>
+                <option value="'Playfair Display', serif">Playfair Display</option>
+                <option value="'Poppins', sans-serif">Poppins</option>
+                <option value="'Press Start 2P', monospace">Press Start 2P</option>
+                <option value="'Proza Libre', sans-serif">Proza Libre</option>
+                <option value="'Quicksand', sans-serif">Quicksand</option>
+                <option value="'Raleway', sans-serif">Raleway</option>
+                <option value="'Righteous', cursive">Righteous</option>
+                <option value="'Roboto', sans-serif">Roboto</option>
+                <option value="'Roboto Mono', monospace">Roboto Mono</option>
+                <option value="'Rubik', sans-serif">Rubik</option>
+                <option value="'Rubik Mono One', monospace">Rubik Mono One</option>
+                <option value="'Source Code Pro', monospace">Source Code Pro</option>
+                <option value="'Source Sans 3', sans-serif">Source Sans 3</option>
+                <option value="'Source Serif 4', serif">Source Serif 4</option>
+                <option value="'Space Grotesk', sans-serif">Space Grotesk</option>
+                <option value="'Space Mono', monospace">Space Mono</option>
+                <option value="'Spectral', serif">Spectral</option>
+                <option value="'Syne', sans-serif">Syne</option>
+                <option value="'Syne Mono', monospace">Syne Mono</option>
+                <option value="'Ubuntu', sans-serif">Ubuntu</option>
+                <option value="'Ubuntu Mono', monospace">Ubuntu Mono</option>
+                <option value="'Work Sans', sans-serif">Work Sans</option>
+                <option value="'Xanh Mono', monospace">Xanh Mono</option>
+            </select>
+            
+            <label>H1 Weight:</label>
+            <select id="font-weight-h1">
+                <option value="400">Regular (400)</option>
+                <option value="500">Medium (500)</option>
+                <option value="600">Semi-Bold (600)</option>
+                <option value="700" selected>Bold (700)</option>
+                <option value="800">Extra Bold (800)</option>
+                <option value="900">Black (900)</option>
+            </select>
+            
+            <label>H2 Weight:</label>
+            <select id="font-weight-h2">
+                <option value="400">Regular (400)</option>
+                <option value="500">Medium (500)</option>
+                <option value="600" selected>Semi-Bold (600)</option>
+                <option value="700">Bold (700)</option>
+                <option value="800">Extra Bold (800)</option>
+                <option value="900">Black (900)</option>
+            </select>
+            
+            <label>H3 Weight:</label>
+            <select id="font-weight-h3">
+                <option value="400">Regular (400)</option>
+                <option value="500">Medium (500)</option>
+                <option value="600" selected>Semi-Bold (600)</option>
+                <option value="700">Bold (700)</option>
+                <option value="800">Extra Bold (800)</option>
+                <option value="900">Black (900)</option>
+            </select>
+            
+            <label>UI Font:</label>
+            <select id="font-ui">
+                <option value="'Alegreya', serif">Alegreya</option>
+                <option value="'Alegreya Sans', sans-serif">Alegreya Sans</option>
+                <option value="'Anton', sans-serif">Anton</option>
+                <option value="'Archivo Narrow', sans-serif">Archivo Narrow</option>
+                <option value="'Azeret Mono', monospace">Azeret Mono</option>
+                <option value="'B612 Mono', monospace">B612 Mono</option>
+                <option value="'Bebas Neue', cursive">Bebas Neue</option>
+                <option value="'BIZ UDMincho', monospace">BIZ UDMincho</option>
+                <option value="'BioRhyme', serif">BioRhyme</option>
+                <option value="'Bytesized', monospace">Bytesized</option>
+                <option value="'Cardo', serif">Cardo</option>
+                <option value="'Chivo', sans-serif">Chivo</option>
+                <option value="'Comfortaa', cursive">Comfortaa</option>
+                <option value="'Cormorant', serif">Cormorant</option>
+                <option value="'Crimson Text', serif">Crimson Text</option>
+                <option value="'Cutive Mono', monospace">Cutive Mono</option>
+                <option value="'DM Sans', sans-serif">DM Sans</option>
+                <option value="'Doto', monospace">Doto</option>
+                <option value="'Eczar', serif">Eczar</option>
+                <option value="'Fira Code', monospace">Fira Code</option>
+                <option value="'Fira Sans', sans-serif">Fira Sans</option>
+                <option value="'Fraunces', serif">Fraunces</option>
+                <option value="'Fredoka One', cursive">Fredoka One</option>
+                <option value="'Hack', monospace">Hack</option>
+                <option value="'IBM Plex Mono', monospace">IBM Plex Mono</option>
+                <option value="'Merriweather', serif" selected>Merriweather</option>
+                <option value="'Inconsolata', monospace">Inconsolata</option>
+                <option value="'Inknut Antiqua', serif">Inknut Antiqua</option>
+                <option value="'Inter', sans-serif">Inter</option>
+                <option value="'JetBrains Mono', monospace">JetBrains Mono</option>
+                <option value="'Karla', sans-serif">Karla</option>
+                <option value="'Kosugi Maru', monospace">Kosugi Maru</option>
+                <option value="'Lato', sans-serif">Lato</option>
+                <option value="'Lekton', monospace">Lekton</option>
+                <option value="'Libre Baskerville', serif">Libre Baskerville</option>
+                <option value="'Libre Franklin', sans-serif">Libre Franklin</option>
+                <option value="'Libertinus Mono', monospace">Libertinus Mono</option>
+                <option value="'Lora', serif">Lora</option>
+                <option value="'Major Mono Display', monospace">Major Mono Display</option>
+                <option value="'Manrope', sans-serif">Manrope</option>
+                <option value="'Martian Mono', monospace">Martian Mono</option>
+                <option value="'Merriweather', serif">Merriweather</option>
+                <option value="'Montserrat', sans-serif">Montserrat</option>
+                <option value="'Neuton', serif">Neuton</option>
+                <option value="'Nunito', sans-serif">Nunito</option>
+                <option value="'Open Sans', sans-serif">Open Sans</option>
+                <option value="'Oswald', sans-serif">Oswald</option>
+                <option value="'PT Sans', sans-serif">PT Sans</option>
+                <option value="'PT Serif', serif">PT Serif</option>
+                <option value="'Playfair Display', serif">Playfair Display</option>
+                <option value="'Poppins', sans-serif">Poppins</option>
+                <option value="'Press Start 2P', monospace">Press Start 2P</option>
+                <option value="'Proza Libre', sans-serif">Proza Libre</option>
+                <option value="'Quicksand', sans-serif">Quicksand</option>
+                <option value="'Raleway', sans-serif">Raleway</option>
+                <option value="'Righteous', cursive">Righteous</option>
+                <option value="'Roboto', sans-serif">Roboto</option>
+                <option value="'Roboto Mono', monospace">Roboto Mono</option>
+                <option value="'Rubik', sans-serif">Rubik</option>
+                <option value="'Rubik Mono One', monospace">Rubik Mono One</option>
+                <option value="'Source Code Pro', monospace">Source Code Pro</option>
+                <option value="'Source Sans 3', sans-serif">Source Sans 3</option>
+                <option value="'Source Serif 4', serif">Source Serif 4</option>
+                <option value="'Space Grotesk', sans-serif">Space Grotesk</option>
+                <option value="'Space Mono', monospace">Space Mono</option>
+                <option value="'Spectral', serif">Spectral</option>
+                <option value="'Syne', sans-serif">Syne</option>
+                <option value="'Syne Mono', monospace">Syne Mono</option>
+                <option value="'Ubuntu', sans-serif">Ubuntu</option>
+                <option value="'Ubuntu Mono', monospace">Ubuntu Mono</option>
+                <option value="'Work Sans', sans-serif">Work Sans</option>
+                <option value="'Xanh Mono', monospace">Xanh Mono</option>
+            </select>
+            
+            <label>Body Weight:</label>
+            <select id="font-weight-body">
+                <option value="300">Light (300)</option>
+                <option value="400" selected>Regular (400)</option>
+                <option value="500">Medium (500)</option>
+                <option value="600">Semi-Bold (600)</option>
+            </select>
+            
+            <label>Mono Font:</label>
+            <select id="font-mono">
+                <option value="'Azeret Mono', monospace">Azeret Mono</option>
+                <option value="'B612 Mono', monospace">B612 Mono</option>
+                <option value="'BIZ UDMincho', monospace">BIZ UDMincho</option>
+                <option value="'Bytesized', monospace">Bytesized</option>
+                <option value="'Cutive Mono', monospace">Cutive Mono</option>
+                <option value="'Doto', monospace">Doto</option>
+                <option value="'Fira Code', monospace" selected>Fira Code</option>
+                <option value="'Hack', monospace">Hack</option>
+                <option value="'IBM Plex Mono', monospace">IBM Plex Mono</option>
+                <option value="'Inconsolata', monospace">Inconsolata</option>
+                <option value="'JetBrains Mono', monospace">JetBrains Mono</option>
+                <option value="'Kosugi Maru', monospace">Kosugi Maru</option>
+                <option value="'Lekton', monospace">Lekton</option>
+                <option value="'Libertinus Mono', monospace">Libertinus Mono</option>
+                <option value="'Major Mono Display', monospace">Major Mono Display</option>
+                <option value="'Martian Mono', monospace">Martian Mono</option>
+                <option value="'Press Start 2P', monospace">Press Start 2P</option>
+                <option value="'Roboto Mono', monospace">Roboto Mono</option>
+                <option value="'Rubik Mono One', monospace">Rubik Mono One</option>
+                <option value="'Source Code Pro', monospace">Source Code Pro</option>
+                <option value="'Space Mono', monospace">Space Mono</option>
+                <option value="'Syne Mono', monospace">Syne Mono</option>
+                <option value="'Ubuntu Mono', monospace">Ubuntu Mono</option>
+                <option value="'Xanh Mono', monospace">Xanh Mono</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <h3>Font Sizes</h3>
+            <div class="size-control">
+                <label>H1 Size:</label>
+                <input type="range" id="font-size-h1" min="20" max="48" value="32" step="2">
+                <span id="font-size-h1-value">32px</span>
+            </div>
+            
+            <div class="size-control">
+                <label>H2 Size:</label>
+                <input type="range" id="font-size-h2" min="16" max="36" value="24" step="2">
+                <span id="font-size-h2-value">24px</span>
+            </div>
+            
+            <div class="size-control">
+                <label>H3 Size:</label>
+                <input type="range" id="font-size-h3" min="14" max="28" value="18" step="2">
+                <span id="font-size-h3-value">18px</span>
+            </div>
+            
+            <div class="size-control">
+                <label>Body Size:</label>
+                <input type="range" id="font-size-body" min="12" max="24" value="16" step="1">
+                <span id="font-size-body-value">16px</span>
+            </div>
+        </div>
+
+        <div class="export-section">
+            <h3>Export</h3>
+            <button class="export-btn" onclick="exportTheme('lua')">Lua</button>
+            <button class="export-btn" onclick="exportTheme('yaml')">YAML</button>
+            <button class="export-btn" onclick="exportTheme('css')">CSS</button>
+            <button class="export-btn" onclick="exportTheme('toml')">TOML</button>
+            <button class="export-btn" onclick="exportTheme('vscode')">VS Code</button>
+            <button class="export-btn" onclick="exportTheme('sublime')">Sublime</button>
+            <button class="export-btn" onclick="exportTheme('micro')">Micro</button>
+            <button class="export-btn" onclick="exportTheme('obsidian')">Obsidian</button>
+            <div class="export-output" id="export-output"></div>
+            <button class="copy-btn" onclick="copyToClipboard()">📋 Copy to Clipboard</button>
+        </div>
+    </div>
+
+    <div class="preview-container">
+        <div class="preview-item">
+            <h3>Terminal</h3>
+            <div class="terminal">
+                <div><span class="prompt">user@system:~$</span> <span class="command">ls -la</span></div>
+                <div class="output">drwxr-xr-x  5 user user 4096 Jan 11 21:08 .</div>
+                <div class="output">drwxr-xr-x  3 user user 4096 Jan 11 20:45 ..</div>
+                <div class="output">-rw-r--r--  1 user user  220 Jan 11 20:45 .bashrc</div>
+                <div><span class="prompt">user@system:~$</span> <span class="command">git status</span></div>
+                <div class="output">On branch main</div>
+                <div class="output">Your branch is up to date with 'origin/main'.</div>
+            </div>
+        </div>
+
+        <div class="preview-item">
+            <h3>JavaScript Code</h3>
+            <div class="code-block">
+<span class="keyword">function</span> <span class="function">createTheme</span>(<span class="string">colors</span>) {
+  <span class="comment">// Initialize theme object</span>
+  <span class="keyword">const</span> theme = {
+    <span class="string">foreground</span>: colors.fg,
+    <span class="string">background</span>: colors.bg
+  };
+  
+  <span class="keyword">return</span> theme;
+}
+            </div>
+        </div>
+
+        <div class="preview-item">
+            <h3>Rust Code</h3>
+            <div class="code-block">
+<span class="keyword">struct</span> <span class="function">Theme</span> {
+    <span class="string">foreground</span>: <span class="keyword">String</span>,
+    <span class="string">background</span>: <span class="keyword">String</span>,
+}
+
+<span class="keyword">impl</span> <span class="function">Theme</span> {
+    <span class="keyword">fn</span> <span class="function">new</span>() -> <span class="keyword">Self</span> {
+        <span class="comment">// Create new theme</span>
+        <span class="function">Theme</span> {
+            <span class="string">foreground</span>: <span class="string">"#ffffff"</span>.<span class="function">to_string</span>(),
+            <span class="string">background</span>: <span class="string">"#1a1a1a"</span>.<span class="function">to_string</span>(),
+        }
+    }
+}
+            </div>
+        </div>
+
+        <div class="preview-item">
+            <h3>Window</h3>
+            <div class="window">
+                <div class="window-header">
+                    <div class="window-buttons">
+                        <div class="window-button close"></div>
+                        <div class="window-button minimize"></div>
+                        <div class="window-button maximize"></div>
+                    </div>
+                    <div class="window-title">Theme Builder - Settings</div>
+                </div>
+                <div class="window-content">
+                    <p>This is a sample window showing how your theme colors will appear in desktop applications.</p>
+                    <p>The window header uses neutral-dark background with foreground text.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="preview-item">
+            <h3>Markdown</h3>
+            <div class="markdown">
+                <h1>Main Heading</h1>
+                <p>This is a paragraph with some <code>inline code</code> to show how it looks.</p>
+                <h2>Secondary Heading</h2>
+                <p>Another paragraph demonstrating the theme colors in markdown content.</p>
+                <h3>Tertiary Heading</h3>
+                <p>Final paragraph showing text rendering with your selected colors.</p>
+            </div>
+        </div>
+
+        <div class="preview-item">
+            <h3>Document</h3>
+            <div class="document">
+                <p>This represents a standard document or text editor. The background uses your selected background color while the text uses the foreground color.</p>
+                <p>This helps you see how readable your color combination is for long-form text content.</p>
+            </div>
+        </div>
+
+        <div class="preview-item">
+            <h3>Sway Bar</h3>
+            <div class="sway-bar">
+                <div>
+                    <span class="sway-workspace">1</span>
+                    <span class="sway-workspace">2</span>
+                    <span>3</span>
+                </div>
+                <div class="sway-status">
+                    <span>🔊 75%</span>
+                    <span>🔋 85%</span>
+                    <span>21:08</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="preview-item">
+            <h3>VS Code</h3>
+            <div class="vscode">
+                <div class="vscode-sidebar">
+                    <div class="vscode-file active">index.js</div>
+                    <div class="vscode-file">style.css</div>
+                    <div class="vscode-file">README.md</div>
+                </div>
+                <div class="vscode-editor">
+                    <div class="vscode-tabs">
+                        <div class="vscode-tab active">index.js</div>
+                        <div class="vscode-tab">style.css</div>
+                    </div>
+                    <div class="code-block">
+<span class="keyword">import</span> { <span class="function">useState</span> } <span class="keyword">from</span> <span class="string">'react'</span>;
+
+<span class="keyword">export</span> <span class="keyword">function</span> <span class="function">App</span>() {
+  <span class="comment">// Component state</span>
+  <span class="keyword">const</span> [theme, setTheme] = <span class="function">useState</span>(<span class="string">'dark'</span>);
+  
+  <span class="keyword">return</span> <span class="string">&lt;div&gt;Hello World&lt;/div&gt;</span>;
+}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="preview-item">
+            <h3>Sublime Text</h3>
+            <div class="sublime">
+                <div class="sublime-tabs">
+                    <div class="sublime-tab active">theme.js</div>
+                    <div class="sublime-tab">config.json</div>
+                    <div class="sublime-tab modified">styles.css</div>
+                </div>
+                <div class="code-block">
+<span class="keyword">class</span> <span class="function">ThemeBuilder</span> {
+  <span class="function">constructor</span>(<span class="string">options</span>) {
+    <span class="keyword">this</span>.<span class="string">colors</span> = options.<span class="string">colors</span> || {};
+    <span class="keyword">this</span>.<span class="string">fonts</span> = options.<span class="string">fonts</span> || {};
+  }
+  
+  <span class="function">generate</span>() {
+    <span class="comment">// Generate theme configuration</span>
+    <span class="keyword">return</span> <span class="keyword">this</span>.<span class="function">buildConfig</span>();
+  }
+}
+                </div>
+            </div>
+        </div>
+
+        <div class="preview-item">
+            <h3>Micro Editor</h3>
+            <div class="micro">
+                <div class="micro-statusbar">
+                    <span>theme-config.lua</span>
+                    <span class="micro-position">Ln 12, Col 15</span>
+                </div>
+                <div class="code-block">
+<span class="keyword">local</span> <span class="string">M</span> = {}
+
+<span class="function">M.setup</span> = <span class="keyword">function</span>(<span class="string">opts</span>)
+  <span class="comment">-- Setup theme configuration</span>
+  <span class="keyword">local</span> <span class="string">colors</span> = opts.<span class="string">colors</span> <span class="keyword">or</span> {}
+  
+  <span class="keyword">return</span> {
+    <span class="string">foreground</span> = colors.<span class="string">fg</span>,
+    <span class="string">background</span> = colors.<span class="string">bg</span>,
+    <span class="string">highlight</span> = colors.<span class="string">accent</span>
+  }
+<span class="keyword">end</span>
+
+<span class="keyword">return</span> <span class="string">M</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const colors = ['foreground', 'background', 'highlight', 'secondary', 'neutral-1', 'neutral-2', 'neutral-3'];
+        
+        function updateTheme() {
+            const root = document.documentElement;
+            
+            colors.forEach(color => {
+                const colorInput = document.getElementById(color);
+                const hexInput = document.getElementById(color + '-hex');
+                const cssVar = '--' + color.replace('-', '-');
+                
+                root.style.setProperty(cssVar, colorInput.value);
+                hexInput.value = colorInput.value;
+            });
+            
+            root.style.setProperty('--font-header', document.getElementById('font-header').value);
+            root.style.setProperty('--font-ui', document.getElementById('font-ui').value);
+            root.style.setProperty('--font-mono', document.getElementById('font-mono').value);
+            
+            // Update font weights
+            root.style.setProperty('--font-weight-h1', document.getElementById('font-weight-h1').value);
+            root.style.setProperty('--font-weight-h2', document.getElementById('font-weight-h2').value);
+            root.style.setProperty('--font-weight-h3', document.getElementById('font-weight-h3').value);
+            root.style.setProperty('--font-weight-body', document.getElementById('font-weight-body').value);
+            
+            // Update font sizes
+            root.style.setProperty('--font-size-h1', document.getElementById('font-size-h1').value + 'px');
+            root.style.setProperty('--font-size-h2', document.getElementById('font-size-h2').value + 'px');
+            root.style.setProperty('--font-size-h3', document.getElementById('font-size-h3').value + 'px');
+            root.style.setProperty('--font-size-body', document.getElementById('font-size-body').value + 'px');
+            
+            // Update value displays
+            document.getElementById('font-size-h1-value').textContent = document.getElementById('font-size-h1').value + 'px';
+            document.getElementById('font-size-h2-value').textContent = document.getElementById('font-size-h2').value + 'px';
+            document.getElementById('font-size-h3-value').textContent = document.getElementById('font-size-h3').value + 'px';
+            document.getElementById('font-size-body-value').textContent = document.getElementById('font-size-body').value + 'px';
+        }
+
+        function setupColorInputs() {
+            colors.forEach(color => {
+                const colorInput = document.getElementById(color);
+                const hexInput = document.getElementById(color + '-hex');
+                
+                colorInput.addEventListener('input', updateTheme);
+                hexInput.addEventListener('input', (e) => {
+                    if (/^#[0-9A-F]{6}$/i.test(e.target.value)) {
+                        colorInput.value = e.target.value;
+                        updateTheme();
+                    }
+                });
+            });
+            
+            document.getElementById('font-header').addEventListener('change', updateTheme);
+            document.getElementById('font-ui').addEventListener('change', updateTheme);
+            document.getElementById('font-mono').addEventListener('change', updateTheme);
+            document.getElementById('font-weight-h1').addEventListener('change', updateTheme);
+            document.getElementById('font-weight-h2').addEventListener('change', updateTheme);
+            document.getElementById('font-weight-h3').addEventListener('change', updateTheme);
+            document.getElementById('font-weight-body').addEventListener('change', updateTheme);
+            document.getElementById('font-size-h1').addEventListener('input', updateTheme);
+            document.getElementById('font-size-h2').addEventListener('input', updateTheme);
+            document.getElementById('font-size-h3').addEventListener('input', updateTheme);
+            document.getElementById('font-size-body').addEventListener('input', updateTheme);
+        }
+
+        function getThemeColors() {
+            const theme = {};
+            colors.forEach(color => {
+                theme[color.replace('-', '_')] = document.getElementById(color).value;
+            });
+            return theme;
+        }
+
+        function exportTheme(format) {
+            const theme = getThemeColors();
+            const output = document.getElementById('export-output');
+            
+            // Generate color variations
+            const variations = generateColorVariations(theme);
+            
+            // Get font selections
+            const fonts = {
+                header: document.getElementById('font-header').value,
+                ui: document.getElementById('font-ui').value,
+                mono: document.getElementById('font-mono').value,
+                weight_h1: document.getElementById('font-weight-h1').value,
+                weight_h2: document.getElementById('font-weight-h2').value,
+                weight_h3: document.getElementById('font-weight-h3').value,
+                weight_body: document.getElementById('font-weight-body').value,
+                size_h1: document.getElementById('font-size-h1').value + 'px',
+                size_h2: document.getElementById('font-size-h2').value + 'px',
+                size_h3: document.getElementById('font-size-h3').value + 'px',
+                size_body: document.getElementById('font-size-body').value + 'px'
+            };
+            
+            let result = '';
+            
+            switch(format) {
+                case 'lua':
+                    result = `local theme = {\n  -- Colors\n`;
+                    Object.entries(variations).forEach(([key, value]) => {
+                        result += `  ${key} = "${value}",\n`;
+                    });
+                    result += `\n  -- Fonts\n`;
+                    result += `  font_header = ${fonts.header},\n`;
+                    result += `  font_ui = ${fonts.ui},\n`;
+                    result += `  font_mono = ${fonts.mono},\n`;
+                    result += `  font_weight_h1 = ${fonts.weight_h1},\n`;
+                    result += `  font_weight_h2 = ${fonts.weight_h2},\n`;
+                    result += `  font_weight_h3 = ${fonts.weight_h3},\n`;
+                    result += `  font_weight_body = ${fonts.weight_body},\n`;
+                    result += `  font_size_h1 = "${fonts.size_h1}",\n`;
+                    result += `  font_size_h2 = "${fonts.size_h2}",\n`;
+                    result += `  font_size_h3 = "${fonts.size_h3}",\n`;
+                    result += `  font_size_body = "${fonts.size_body}",\n`;
+                    result += `}\n\nreturn theme`;
+                    break;
+                    
+                case 'yaml':
+                    result = `theme:\n  colors:\n`;
+                    Object.entries(variations).forEach(([key, value]) => {
+                        result += `    ${key}: "${value}"\n`;
+                    });
+                    result += `  fonts:\n`;
+                    result += `    header: ${fonts.header}\n`;
+                    result += `    ui: ${fonts.ui}\n`;
+                    result += `    mono: ${fonts.mono}\n`;
+                    result += `    weight_h1: ${fonts.weight_h1}\n`;
+                    result += `    weight_h2: ${fonts.weight_h2}\n`;
+                    result += `    weight_h3: ${fonts.weight_h3}\n`;
+                    result += `    weight_body: ${fonts.weight_body}\n`;
+                    result += `    size_h1: "${fonts.size_h1}"\n`;
+                    result += `    size_h2: "${fonts.size_h2}"\n`;
+                    result += `    size_h3: "${fonts.size_h3}"\n`;
+                    result += `    size_body: "${fonts.size_body}"\n`;
+                    break;
+                    
+                case 'css':
+                    result = `@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;600&family=Fira+Code:wght@400;600&family=Hack:wght@400;600&family=Source+Code+Pro:wght@400;600&family=Inter:wght@400;600&family=Roboto:wght@400;600&family=Open+Sans:wght@400;600&family=Lato:wght@400;600&family=Montserrat:wght@400;600&family=Poppins:wght@400;600&family=Nunito:wght@400;600&family=Raleway:wght@400;600&family=Ubuntu:wght@400;600&family=Merriweather:wght@400;600&family=Playfair+Display:wght@400;600&family=Crimson+Text:wght@400;600&family=Libre+Baskerville:wght@400&family=PT+Serif:wght@400&family=Lora:wght@400;600&family=Oswald:wght@400;600&family=Bebas+Neue&family=Anton&family=Righteous&family=Fredoka+One&family=Comfortaa:wght@400;600&family=Quicksand:wght@400;600&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;600&family=Inconsolata:wght@400;600&family=Roboto+Mono:wght@400;600&family=Ubuntu+Mono:wght@400;700&family=Azeret+Mono:wght@400;600&family=B612+Mono:wght@400;700&family=Cutive+Mono&family=Doto:wght@400;600&family=Lekton:wght@400;700&family=Libertinus+Mono:wght@400;600&family=Major+Mono+Display&family=Martian+Mono:wght@400;600&family=Press+Start+2P&family=Rubik+Mono+One&family=Syne+Mono&family=Xanh+Mono:wght@400;700&family=BIZ+UDMincho:wght@400;700&family=Kosugi+Maru&family=Bytesized&family=DM+Sans:wght@400;600&family=Space+Grotesk:wght@400;600&family=Work+Sans:wght@400;600&family=Syne:wght@400;600&family=Libre+Franklin:wght@400;600&family=Cormorant:wght@400;600&family=Fira+Sans:wght@400;600&family=Eczar:wght@400;600&family=Alegreya+Sans:wght@400;600&family=Alegreya:wght@400;600&family=Source+Sans+3:wght@400;600&family=Source+Serif+4:wght@400;600&family=Fraunces:wght@400;600&family=Inknut+Antiqua:wght@400;600&family=BioRhyme:wght@400;600&family=Archivo+Narrow:wght@400;600&family=Karla:wght@400;600&family=Proza+Libre:wght@400;600&family=Spectral:wght@400;600&family=Manrope:wght@400;600&family=PT+Sans:wght@400;600&family=Cardo:wght@400&family=Chivo:wght@400;600&family=Neuton:wght@400;600&family=Rubik:wght@400;600&display=swap');
+
+:root {
+  /* Colors */`;
+                    Object.entries(variations).forEach(([key, value]) => {
+                        result += `\n  --${key.replace('_', '-')}: ${value};`;
+                    });
+                    result += `\n\n  /* Fonts */\n`;
+                    result += `  --font-header: ${fonts.header};\n`;
+                    result += `  --font-ui: ${fonts.ui};\n`;
+                    result += `  --font-mono: ${fonts.mono};\n`;
+                    result += `  --font-weight-h1: ${fonts.weight_h1};\n`;
+                    result += `  --font-weight-h2: ${fonts.weight_h2};\n`;
+                    result += `  --font-weight-h3: ${fonts.weight_h3};\n`;
+                    result += `  --font-weight-body: ${fonts.weight_body};\n`;
+                    result += `  --font-size-h1: ${fonts.size_h1};\n`;
+                    result += `  --font-size-h2: ${fonts.size_h2};\n`;
+                    result += `  --font-size-h3: ${fonts.size_h3};\n`;
+                    result += `  --font-size-body: ${fonts.size_body};\n`;
+                    result += `}`;
+                    break;
+                    
+                case 'toml':
+                    result = `[theme.colors]\n`;
+                    Object.entries(variations).forEach(([key, value]) => {
+                        result += `${key} = "${value}"\n`;
+                    });
+                    result += `\n[theme.fonts]\n`;
+                    result += `header = ${fonts.header}\n`;
+                    result += `ui = ${fonts.ui}\n`;
+                    result += `mono = ${fonts.mono}\n`;
+                    result += `weight_h1 = ${fonts.weight_h1}\n`;
+                    result += `weight_h2 = ${fonts.weight_h2}\n`;
+                    result += `weight_h3 = ${fonts.weight_h3}\n`;
+                    result += `weight_body = ${fonts.weight_body}\n`;
+                    result += `size_h1 = "${fonts.size_h1}"\n`;
+                    result += `size_h2 = "${fonts.size_h2}"\n`;
+                    result += `size_h3 = "${fonts.size_h3}"\n`;
+                    result += `size_body = "${fonts.size_body}"\n`;
+                    break;
+                    
+                case 'vscode':
+                    result = `{
+  "name": "Custom Theme",
+  "type": "dark",
+  "colors": {
+    "editor.background": "${variations.background}",
+    "editor.foreground": "${variations.foreground}",
+    "activityBar.background": "${variations.neutral_3}",
+    "activityBar.foreground": "${variations.foreground}",
+    "sideBar.background": "${variations.neutral_3}",
+    "sideBar.foreground": "${variations.neutral_2}",
+    "tab.activeBackground": "${variations.background}",
+    "tab.activeForeground": "${variations.foreground}",
+    "tab.inactiveBackground": "${variations.neutral_3}",
+    "tab.inactiveForeground": "${variations.neutral_2}",
+    "statusBar.background": "${variations.highlight}",
+    "statusBar.foreground": "${variations.background}"
+  },
+  "tokenColors": [
+    {
+      "scope": "keyword",
+      "settings": { "foreground": "${variations.secondary}" }
+    },
+    {
+      "scope": "string",
+      "settings": { "foreground": "${variations.highlight}" }
+    },
+    {
+      "scope": "comment",
+      "settings": { "foreground": "${variations.neutral_1}" }
+    }
+  ],
+  "fonts": {
+    "editor.fontFamily": ${fonts.mono},
+    "terminal.integrated.fontFamily": ${fonts.mono}
+  }
+}`;
+                    break;
+                    
+                case 'sublime':
+                    result = `{
+  "name": "Custom Theme",
+  "author": "Theme Builder",
+  "variables": {
+    "background": "${variations.background}",
+    "foreground": "${variations.foreground}",
+    "highlight": "${variations.highlight}",
+    "secondary": "${variations.secondary}",
+    "neutral_1": "${variations.neutral_1}",
+    "neutral_2": "${variations.neutral_2}",
+    "neutral_3": "${variations.neutral_3}",
+    "font_mono": ${fonts.mono},
+    "font_ui": ${fonts.ui}
+  },
+  "globals": {
+    "background": "var(background)",
+    "foreground": "var(foreground)",
+    "caret": "var(highlight)",
+    "selection": "var(neutral_3)",
+    "line_highlight": "var(background_light)",
+    "font_face": "var(font_mono)"
+  },
+  "rules": [
+    {
+      "scope": "keyword",
+      "foreground": "var(secondary)"
+    },
+    {
+      "scope": "string",
+      "foreground": "var(highlight)"
+    },
+    {
+      "scope": "comment",
+      "foreground": "var(neutral_1)"
+    }
+  ]
+}`;
+                    break;
+                    
+                case 'micro':
+                    result = `{
+  "background": "${variations.background}",
+  "foreground": "${variations.foreground}",
+  "cursor-line": "${variations.background_light}",
+  "selection": "${variations.neutral_3}",
+  "gutter-text": "${variations.neutral_1}",
+  "line-number": "${variations.neutral_1}",
+  "current-line-number": "${variations.neutral_2}",
+  "diff-added": "${variations.accent_green}",
+  "diff-modified": "${variations.accent_yellow}",
+  "diff-deleted": "${variations.accent_red}",
+  "scrollbar": "${variations.neutral_3}",
+  "color-column": "${variations.neutral_3}",
+  "type": "${variations.secondary}",
+  "type.keyword": "${variations.secondary}",
+  "identifier": "${variations.foreground}",
+  "identifier.class": "${variations.highlight}",
+  "identifier.var": "${variations.foreground}",
+  "constant": "${variations.highlight}",
+  "constant.string": "${variations.highlight}",
+  "constant.number": "${variations.accent_cyan}",
+  "statement": "${variations.secondary}",
+  "comment": "${variations.neutral_1}",
+  "preproc": "${variations.accent_purple}",
+  "special": "${variations.accent_yellow}",
+  "error": "${variations.accent_red}",
+  "todo": "${variations.accent_yellow}",
+  "hlsearch": "${variations.highlight}",
+  "statusline": "${variations.neutral_3}",
+  "tabbar": "${variations.neutral_3}",
+  "indent-char": "${variations.neutral_3}",
+  "line-number": "${variations.neutral_1}",
+  "current-line-number": "${variations.neutral_2}",
+  "font-family": ${fonts.mono}
+}`;
+                    break;
+                    
+                case 'obsidian':
+                    result = `{
+  "name": "Custom Theme",
+  "version": "1.0.0",
+  "minAppVersion": "0.16.0",
+  "author": "Theme Builder",
+  "authorUrl": "",
+  "fundingUrl": "",
+  "isLegacy": false
+}
+
+/* === OBSIDIAN THEME CSS === */
+
+.theme-dark, .theme-light {
+  /* Base Colors */
+  --background-primary: ${variations.background};
+  --background-primary-alt: ${variations.neutral_3};
+  --background-secondary: ${variations.neutral_3};
+  --background-secondary-alt: ${variations.neutral_2};
+  --background-accent: ${variations.highlight};
+  --background-modifier-border: ${variations.neutral_2};
+  --background-modifier-form-field: ${variations.neutral_3};
+  --background-modifier-form-field-highlighted: ${variations.neutral_2};
+  --background-modifier-box-shadow: rgba(0, 0, 0, 0.1);
+  --background-modifier-success: ${variations.accent_green};
+  --background-modifier-error: ${variations.accent_red};
+  --background-modifier-error-rgb: 255, 92, 92;
+  --background-modifier-error-hover: ${variations.accent_red};
+  --background-modifier-cover: rgba(0, 0, 0, 0.8);
+  --text-accent: ${variations.highlight};
+  --text-accent-hover: ${variations.highlight_bright};
+  --text-normal: ${variations.foreground};
+  --text-muted: ${variations.neutral_1};
+  --text-muted-rgb: 128, 128, 128;
+  --text-faint: ${variations.neutral_2};
+  --text-error: ${variations.accent_red};
+  --text-error-hover: ${variations.accent_red};
+  --text-highlight-bg: ${variations.accent_yellow};
+  --text-highlight-bg-rgb: 255, 208, 0;
+  --text-selection: ${variations.neutral_2};
+  --text-on-accent: ${variations.background};
+  --interactive-normal: ${variations.neutral_3};
+  --interactive-hover: ${variations.neutral_2};
+  --interactive-accent: ${variations.highlight};
+  --interactive-accent-rgb: 123, 108, 217;
+  --interactive-accent-hover: ${variations.highlight_bright};
+  --interactive-success: ${variations.accent_green};
+  --scrollbar-active-thumb-bg: ${variations.neutral_1};
+  --scrollbar-bg: ${variations.neutral_3};
+  --scrollbar-thumb-bg: ${variations.neutral_2};
+  --highlight-mix-blend-mode: darken;
+  
+  /* Typography */
+  --font-text-theme: ${fonts.ui};
+  --font-interface-theme: ${fonts.ui};
+  --font-monospace-theme: ${fonts.mono};
+  --font-text-size: ${fonts.size_body};
+  --font-adaptive-normal: ${fonts.weight_body};
+  --font-adaptive-medium: ${fonts.weight_h3};
+  --font-adaptive-semibold: ${fonts.weight_h2};
+  --font-adaptive-bold: ${fonts.weight_h1};
+  
+  /* Headers */
+  --h1-color: ${variations.foreground};
+  --h1-font: ${fonts.header};
+  --h1-size: ${fonts.size_h1};
+  --h1-weight: ${fonts.weight_h1};
+  --h2-color: ${variations.foreground};
+  --h2-font: ${fonts.header};
+  --h2-size: ${fonts.size_h2};
+  --h2-weight: ${fonts.weight_h2};
+  --h3-color: ${variations.foreground};
+  --h3-font: ${fonts.header};
+  --h3-size: ${fonts.size_h3};
+  --h3-weight: ${fonts.weight_h3};
+  --h4-color: ${variations.foreground};
+  --h4-font: ${fonts.header};
+  --h4-size: calc(${fonts.size_h3} * 0.9);
+  --h4-weight: ${fonts.weight_h3};
+  --h5-color: ${variations.foreground};
+  --h5-font: ${fonts.header};
+  --h5-size: calc(${fonts.size_h3} * 0.8);
+  --h5-weight: ${fonts.weight_h3};
+  --h6-color: ${variations.foreground};
+  --h6-font: ${fonts.header};
+  --h6-size: calc(${fonts.size_h3} * 0.7);
+  --h6-weight: ${fonts.weight_h3};
+  
+  /* Code */
+  --code-background: ${variations.neutral_3};
+  --code-normal: ${variations.secondary};
+  --code-comment: ${variations.neutral_1};
+  --code-function: ${variations.highlight};
+  --code-important: ${variations.accent_red};
+  --code-keyword: ${variations.secondary};
+  --code-operator: ${variations.neutral_1};
+  --code-property: ${variations.highlight};
+  --code-punctuation: ${variations.neutral_1};
+  --code-string: ${variations.accent_green};
+  --code-tag: ${variations.accent_red};
+  --code-value: ${variations.accent_cyan};
+}
+
+/* Apply header styles */
+.markdown-preview-view h1,
+.cm-header-1 {
+  font-family: var(--h1-font);
+  font-size: var(--h1-size);
+  font-weight: var(--h1-weight);
+  color: var(--h1-color);
+}
+
+.markdown-preview-view h2,
+.cm-header-2 {
+  font-family: var(--h2-font);
+  font-size: var(--h2-size);
+  font-weight: var(--h2-weight);
+  color: var(--h2-color);
+}
+
+.markdown-preview-view h3,
+.cm-header-3 {
+  font-family: var(--h3-font);
+  font-size: var(--h3-size);
+  font-weight: var(--h3-weight);
+  color: var(--h3-color);
+}
+
+.markdown-preview-view h4,
+.cm-header-4 {
+  font-family: var(--h4-font);
+  font-size: var(--h4-size);
+  font-weight: var(--h4-weight);
+  color: var(--h4-color);
+}
+
+.markdown-preview-view h5,
+.cm-header-5 {
+  font-family: var(--h5-font);
+  font-size: var(--h5-size);
+  font-weight: var(--h5-weight);
+  color: var(--h5-color);
+}
+
+.markdown-preview-view h6,
+.cm-header-6 {
+  font-family: var(--h6-font);
+  font-size: var(--h6-size);
+  font-weight: var(--h6-weight);
+  color: var(--h6-color);
+}`;
+                    break;
+            }
+            
+            output.textContent = result;
+        }
+
+        function generateColorVariations(theme) {
+            const variations = { ...theme };
+            
+            // Generate brightness variations
+            variations.foreground_dim = adjustBrightness(theme.foreground, -30);
+            variations.background_light = adjustBrightness(theme.background, 15);
+            variations.background_dark = adjustBrightness(theme.background, -10);
+            
+            // Generate saturation variations
+            variations.highlight_bright = adjustSaturation(theme.highlight, 20);
+            variations.highlight_dim = adjustSaturation(theme.highlight, -20);
+            variations.secondary_bright = adjustSaturation(theme.secondary, 15);
+            variations.secondary_dim = adjustSaturation(theme.secondary, -15);
+            
+            // Generate additional neutral variations
+            variations.neutral_1_lighter = adjustBrightness(theme.neutral_2, 10);
+            variations.neutral_3_darker = adjustBrightness(theme.neutral_3, -10);
+            
+            // Generate accent colors
+            variations.accent_red = adjustHue(theme.highlight, 0);
+            variations.accent_green = adjustHue(theme.highlight, 120);
+            variations.accent_blue = adjustHue(theme.highlight, 240);
+            variations.accent_yellow = adjustHue(theme.highlight, 60);
+            variations.accent_purple = adjustHue(theme.highlight, 280);
+            variations.accent_cyan = adjustHue(theme.highlight, 180);
+            
+            return variations;
+        }
+
+        function hexToHsl(hex) {
+            const r = parseInt(hex.slice(1, 3), 16) / 255;
+            const g = parseInt(hex.slice(3, 5), 16) / 255;
+            const b = parseInt(hex.slice(5, 7), 16) / 255;
+            
+            const max = Math.max(r, g, b);
+            const min = Math.min(r, g, b);
+            let h, s, l = (max + min) / 2;
+            
+            if (max === min) {
+                h = s = 0;
+            } else {
+                const d = max - min;
+                s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+                switch (max) {
+                    case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                    case g: h = (b - r) / d + 2; break;
+                    case b: h = (r - g) / d + 4; break;
+                }
+                h /= 6;
+            }
+            
+            return [h * 360, s * 100, l * 100];
+        }
+
+        function hslToHex(h, s, l) {
+            h /= 360; s /= 100; l /= 100;
+            
+            const hue2rgb = (p, q, t) => {
+                if (t < 0) t += 1;
+                if (t > 1) t -= 1;
+                if (t < 1/6) return p + (q - p) * 6 * t;
+                if (t < 1/2) return q;
+                if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+                return p;
+            };
+            
+            let r, g, b;
+            if (s === 0) {
+                r = g = b = l;
+            } else {
+                const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+                const p = 2 * l - q;
+                r = hue2rgb(p, q, h + 1/3);
+                g = hue2rgb(p, q, h);
+                b = hue2rgb(p, q, h - 1/3);
+            }
+            
+            const toHex = (c) => {
+                const hex = Math.round(c * 255).toString(16);
+                return hex.length === 1 ? '0' + hex : hex;
+            };
+            
+            return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+        }
+
+        function adjustBrightness(hex, amount) {
+            const [h, s, l] = hexToHsl(hex);
+            return hslToHex(h, s, Math.max(0, Math.min(100, l + amount)));
+        }
+
+        function adjustSaturation(hex, amount) {
+            const [h, s, l] = hexToHsl(hex);
+            return hslToHex(h, Math.max(0, Math.min(100, s + amount)), l);
+        }
+
+        function adjustHue(hex, newHue) {
+            const [h, s, l] = hexToHsl(hex);
+            return hslToHex(newHue, s, l);
+        }
+
+        function copyToClipboard() {
+            const output = document.getElementById('export-output');
+            if (output.textContent) {
+                navigator.clipboard.writeText(output.textContent).then(() => {
+                    const btn = document.querySelector('.copy-btn');
+                    const originalText = btn.textContent;
+                    btn.textContent = '✓ Copied!';
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                    }, 2000);
+                });
+            }
+        }
+
+        setupColorInputs();
+        updateTheme();
+    </script>
+</body>
+</html>
