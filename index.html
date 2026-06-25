@@ -658,6 +658,7 @@
             <button class="export-btn" onclick="exportTheme('sublime')">Sublime</button>
             <button class="export-btn" onclick="exportTheme('micro')">Micro</button>
             <button class="export-btn" onclick="exportTheme('obsidian')">Obsidian</button>
+            <button class="export-btn" onclick="exportTheme('dataroom')">Dataroom</button>
             <button class="export-btn" onclick="exportTheme('i3')">i3</button>
             <button class="export-btn" onclick="exportTheme('sway')">Sway</button>
             <div class="export-output" id="export-output"></div>
@@ -1701,6 +1702,72 @@ output * bg ${variations.background} solid_color
   color: var(--h6-color);
 }`;
                     break;
+
+                case 'dataroom': {
+                    const family = fonts.mono.name.replace(/\s+/g, '');
+                    const toHex = (c) => c.toUpperCase();
+                    const rgba = (hex, a) => '#' + hex.slice(1).toUpperCase() + a;
+                    const argb = (hex, a) => '#' + a + hex.slice(1).toUpperCase();
+
+                    const dataroomColors = {
+                        background: toHex(theme.background),
+                        foreground: toHex(theme.foreground),
+                        text: toHex(theme.foreground),
+                        text_muted: toHex(theme.muted),
+                        text_dim: toHex(theme.border),
+                        accent: toHex(theme.accent),
+                        surface: toHex(theme.surface),
+                        border: rgba(theme.foreground, '28'),
+                        selection: rgba(theme.foreground, '40'),
+                        highlight: toHex(theme['surface-alt']),
+                        hover: toHex(theme['surface-alt']),
+                        active: adjustBrightness(theme['surface-alt'], -10).toUpperCase(),
+                        error: '#D94033',
+                        success: '#3A6E3A',
+                        warning: toHex(theme.accent),
+                        info: '#1A4D6B',
+                        link: toHex(theme.accent),
+                        code: toHex(theme.accent),
+                        h1: toHex(theme.foreground),
+                        h2: toHex(theme.secondary),
+                        h3: toHex(theme.secondary),
+                        citation: toHex(theme.muted),
+                        code_block_bg: toHex(theme.surface),
+                        table_header_bg: toHex(theme.surface),
+                        horizontal_rule: rgba(theme.foreground, '20'),
+                        cursor: argb(theme.foreground, 'E6'),
+                        scrollbar_track: rgba(theme.foreground, '14'),
+                        scrollbar_thumb: rgba(theme.foreground, '40'),
+                        task_checked: toHex(theme.muted),
+                        task_in_progress: '#3A6E3A',
+                        task_blocked: '#D94033',
+                        syntax_keyword: toHex(theme.accent),
+                        syntax_string: '#3A6E3A',
+                        syntax_comment: toHex(theme.muted),
+                        syntax_number: toHex(theme.accent),
+                        syntax_function: '#1A4D6B',
+                        syntax_property: '#7A5C1A',
+                        syntax_operator: '#2E5A5A',
+                        grid_line: rgba(theme.foreground, '20'),
+                        header_bg: toHex(theme.surface),
+                        header_text: toHex(theme.muted),
+                        confirmation: '#3A6E3A',
+                        secondary: toHex(theme['surface-alt']),
+                        trinary: toHex(theme.muted),
+                        quaternary: adjustBrightness(theme['surface-alt'], -10).toUpperCase()
+                    };
+
+                    result = `# bg-0 ${toHex(theme.background)}, ink-0 ${toHex(theme.foreground)}, ink-2 ${toHex(theme.muted)}, amber ${toHex(theme.accent)}\n\ncolors:\n`;
+                    Object.entries(dataroomColors).forEach(([key, value]) => {
+                        result += `  ${key}: "${value}"\n`;
+                    });
+                    result += `fonts:\n`;
+                    result += `  normal: "../assets/fonts/${family}-Regular.ttf"\n`;
+                    result += `  bold: "../assets/fonts/${family}-Bold.ttf"\n`;
+                    result += `  family: "${family}"\n`;
+                    result += `  base_size: 14\n`;
+                    break;
+                }
             }
 
             output.textContent = result;
